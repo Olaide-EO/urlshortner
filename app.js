@@ -73,6 +73,14 @@ app.post("/api/shorturl/new", (req, res, next)=>{
 );
 
 
+app.get('/api/shorturl/:urlToSearch', (req, res, next)=>{
+    let shortURLToSearch = req.params.urlToSearch;
+    shortURL.findOne({shortURL: shortURLToSearch}, (err, data)=>{
+        if(err) return res.send('Error reading database');
+        res.redirect(301, data.originalURL);
+    })
+})
+
 
 
 //Listen to see if everything is working
