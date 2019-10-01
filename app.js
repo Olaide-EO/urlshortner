@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-mongoose.connect(process.env.MONGODB_URL || 'mongodb+srv://ebenezer:ebenezer@ebenezer-m15jl.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGODB_URL);
 app.use("/public",express.static(__dirname + "/public"));
 
 
