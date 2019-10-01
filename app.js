@@ -77,7 +77,14 @@ app.get('/api/shorturl/:urlToSearch', (req, res, next)=>{
     let shortURLToSearch = req.params.urlToSearch;
     shortURL.findOne({shortURL: shortURLToSearch}, (err, data)=>{
         if(err) return res.send('Error reading database');
-        res.redirect(301, data.originalURL);
+        let reg = new RegExp("^(http|https)://", "i");
+        let checkString = data.originalURL;
+        if(reg.test(checkString)){
+         res.redirect(301, data.originalURL);
+        }
+      else{
+          res.redirect(301, 'https://'+data.originalURL);
+      } 
     })
 })
 
