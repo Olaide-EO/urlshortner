@@ -49,7 +49,17 @@ app.post("/api/shorturl/new", (req, res, next)=>{
            )
 
            dns.lookup(editedHostName, function(err, address, family ){
-            err? res.json({"Error": "Invalid URL" }): res.json({ "address": address });
+            if(err){
+                res.json({"Error": "Invalid URL" })}
+                else{
+                    data.save(err=>{
+                        if(err){
+                            res.send('Error Saving to Database')
+                        }
+
+                    })
+                    res.json(data);
+                };
        });
      
     }
